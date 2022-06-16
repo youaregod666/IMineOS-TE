@@ -17,7 +17,7 @@ local EEPROMProxy, internetProxy, GPUProxy =
 GPUProxy.bind(getComponentAddress("screen"))
 local screenWidth, screenHeight = GPUProxy.getResolution()
 
-local repositoryURL = "https://raw.githubusercontent.com/youaregod666/IMineOS_BIOS/master/"
+local repositoryURL = "https://raw.githubusercontent.com/youaregod666/Pad-IMineOS/master/"
 local installerURL = "Installer/"
 local EFIURL = "EFI/Minified.lua"
 
@@ -541,7 +541,7 @@ addStage(function()
 
 	-- Renaming if possible
 	if not selectedFilesystemProxy.getLabel() then
-		selectedFilesystemProxy.setLabel("IMineOS")
+		selectedFilesystemProxy.setLabel("IMineOS-Pad HDD")
 	end
 
 	local function switchProxy(runnable)
@@ -570,7 +570,7 @@ addStage(function()
 	workspace:draw()
 	
 	EEPROMProxy.set(request(EFIURL))
-	EEPROMProxy.setLabel("IMineOS BIOS")
+	EEPROMProxy.setLabel("IMineOS-Pad BIOS")
 	EEPROMProxy.setData(selectedFilesystemProxy.address)
 
 	-- Downloading files
@@ -668,10 +668,10 @@ addStage(function()
 	addImage(1, 1, "Done")
 	addTitle(0x969696, localization.installed)
 	addStageButton(localization.reboot).onTouch = function()
-			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Full.lua") == nil then
+			--if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Full.lua") == nil then
 	computer.shutdown(true)
 end
-			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Minified.lua") == nil then
+			--if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Minified.lua") == nil then
 	computer.shutdown(true)
 end
 		computer.shutdown(true)
