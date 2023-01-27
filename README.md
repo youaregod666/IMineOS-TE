@@ -1,5 +1,7 @@
 English
 
+
+
 ## IMineOS Standalone has released!
 
 Hello again, dear friend. Thank you for being with us and supporting our ideas throughout the long development cycle. IMineOS has finally reached the release stage: now it is a completely independent operating system with its own development API and wonderful [illustrated wiki](https://github.com/IgorTimofeev/MineOS/wiki) of it's usage. 
@@ -14,10 +16,13 @@ Here's a list of a few features:
 -   File sharing over the local network via modems
 -   Client connections to real FTP servers
 -   An internal IDE with syntax highlighting and debugger
--   Integrated application and library App Market with the ability to publish your own scripts and programs for every IMineOS user
 -   Error reporting system with the possibility to send information to developers
 -   Animations, wallpapers, screensavers, color schemes and huge customization possibilities
 -   Open source system API and detailed illustrated documentations
+
+## Project in 2023
+
+will get more updates.
 
 ## how to install EFI
 
@@ -38,3 +43,7 @@ After a moment, a nice system installer will be shown. You will be prompted to s
 ## How to create applications and work with API?
 
 [Wiki by IgorTimofeev](https://github.com/IgorTimofeev/MineOS/wiki)
+
+## Rights
+ 
+ All rights to [IgorTimofeev](https://github.com/IgorTimofeev)
