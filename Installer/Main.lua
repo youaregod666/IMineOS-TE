@@ -17,7 +17,7 @@ local EEPROMProxy, internetProxy, GPUProxy =
 GPUProxy.bind(getComponentAddress("screen"))
 local screenWidth, screenHeight = GPUProxy.getResolution()
 
-local repositoryURL = "https://raw.githubusercontent.com/youaregod666/Pad-IMineOS/master/"
+local repositoryURL = "https://raw.githubusercontent.com/youaregod666/IMineOS_BIOS/master/"
 local installerURL = "Installer/"
 local EFIURL = "EFI/Minified.lua"
 
@@ -296,14 +296,14 @@ local localization
 local stage = 1
 local stages = {}
 
-local usernameInput = newInput("")
+local usernameInput = newInput("IMineOS")
 local passwordInput = newInput("", false, "•")
 local passwordSubmitInput = newInput("", false, "•")
 local usernamePasswordText = GUI.text(1, 1, 0xCC0040, "")
 local passwordSwitchAndLabel = newSwitchAndLabel(26, 0x66DB80, "", false)
 
 local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0xFF4980, "", true)
-local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0xFFB600, "", true)
+local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0xFFB600, "", false)
 local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x33DB80, "", true)
 local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x33B6FF, "", true)
 
@@ -541,7 +541,7 @@ addStage(function()
 
 	-- Renaming if possible
 	if not selectedFilesystemProxy.getLabel() then
-		selectedFilesystemProxy.setLabel("IMineOS-Pad HDD")
+		selectedFilesystemProxy.setLabel("MineOS HDD")
 	end
 
 	local function switchProxy(runnable)
@@ -570,7 +570,7 @@ addStage(function()
 	workspace:draw()
 	
 	EEPROMProxy.set(request(EFIURL))
-	EEPROMProxy.setLabel("IMineOS-Pad BIOS")
+	EEPROMProxy.setLabel("MineOS EFI")
 	EEPROMProxy.setData(selectedFilesystemProxy.address)
 
 	-- Downloading files
@@ -668,10 +668,10 @@ addStage(function()
 	addImage(1, 1, "Done")
 	addTitle(0x969696, localization.installed)
 	addStageButton(localization.reboot).onTouch = function()
-			--if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Full.lua") == nil then
+			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Full.lua") == nil then
 	computer.shutdown(true)
 end
-			--if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Minified.lua") == nil then
+			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Minified.lua") == nil then
 	computer.shutdown(true)
 end
 		computer.shutdown(true)
