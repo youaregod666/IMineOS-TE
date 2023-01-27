@@ -22,7 +22,8 @@ Here's a list of a few features:
 
 ## Project in 2023
 
-will get more updates.
+will get more updates. 
+Installer and Updater are Done.
 
 ## how to install EFI
 
