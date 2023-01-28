@@ -42,7 +42,7 @@ end
 
 local function title()
 	local y = math.floor(screenHeight / 2 - 1)
-	centrizedText(y, 0x2D2D2D, "Starting IMineOS Setup")
+	centrizedText(y, 0x2D2D2D, "Starting IMineOS PC Setup")
 
 	return y + 2
 end
@@ -235,7 +235,7 @@ window:addChild(GUI.panel(1, 1, window.width, window.height, 0xE1E1E1))
 
 -- Top menu
 local menu = workspace:addChild(GUI.menu(1, 1, workspace.width, 0xF0F0F0, 0x787878, 0x3366CC, 0xE1E1E1))
-local installerMenu = menu:addContextMenuItem("IMineOS", 0x2D2D2D)
+local installerMenu = menu:addContextMenuItem("IMineOS PC", 0x2D2D2D)
 installerMenu:addItem("Shutdown").onTouch = function()
 	computer.shutdown()
 end
@@ -296,14 +296,14 @@ local localization
 local stage = 1
 local stages = {}
 
-local usernameInput = newInput("IMineOS")
+local usernameInput = newInput("")
 local passwordInput = newInput("", false, "•")
 local passwordSubmitInput = newInput("", false, "•")
 local usernamePasswordText = GUI.text(1, 1, 0xCC0040, "")
 local passwordSwitchAndLabel = newSwitchAndLabel(26, 0x66DB80, "", false)
 
 local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0xFF4980, "", true)
-local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0xFFB600, "", false)
+local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0xFFB600, "", true)
 local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x33DB80, "", true)
 local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x33B6FF, "", true)
 
@@ -541,7 +541,7 @@ addStage(function()
 
 	-- Renaming if possible
 	if not selectedFilesystemProxy.getLabel() then
-		selectedFilesystemProxy.setLabel("MineOS HDD")
+		selectedFilesystemProxy.setLabel("IMineOS")
 	end
 
 	local function switchProxy(runnable)
@@ -570,7 +570,7 @@ addStage(function()
 	workspace:draw()
 	
 	EEPROMProxy.set(request(EFIURL))
-	EEPROMProxy.setLabel("MineOS EFI")
+	EEPROMProxy.setLabel("IMineOS BIOS")
 	EEPROMProxy.setData(selectedFilesystemProxy.address)
 
 	-- Downloading files
@@ -668,13 +668,7 @@ addStage(function()
 	addImage(1, 1, "Done")
 	addTitle(0x969696, localization.installed)
 	addStageButton(localization.reboot).onTouch = function()
-			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Full.lua") == nil then
 	computer.shutdown(true)
-end
-			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Minified.lua") == nil then
-	computer.shutdown(true)
-end
-		computer.shutdown(true)
 	end
 	workspace:draw()
 
