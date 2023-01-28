@@ -229,7 +229,7 @@ local workspace = GUI.workspace()
 workspace:addChild(GUI.panel(1, 1, workspace.width, workspace.height, 0xFFFFFF))
 
 -- Main installer window
-local window = workspace:addChild(GUI.window(1, 1, 50, 24))
+local window = workspace:addChild(GUI.window(1, 1, 80, 20))
 window.localX, window.localY = math.ceil(workspace.width / 2 - window.width / 2), math.ceil(workspace.height / 2 - window.height / 2)
 window:addChild(GUI.panel(1, 1, window.width, window.height, 0x000000))
 
