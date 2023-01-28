@@ -229,9 +229,9 @@ local workspace = GUI.workspace()
 workspace:addChild(GUI.panel(1, 1, workspace.width, workspace.height, 0xFFFFFF))
 
 -- Main installer window
-local window = workspace:addChild(GUI.window(1, 1, 60, 9))
+local window = workspace:addChild(GUI.window(1, 1, 30, 24))
 window.localX, window.localY = math.ceil(workspace.width / 2 - window.width / 2), math.ceil(workspace.height / 2 - window.height / 2)
-window:addChild(GUI.panel(1, 1, 60, 9, 0xE1E1E1))
+window:addChild(GUI.panel(1, 1, window.width, window.height, 0x000000))
 
 -- Top menu
 local menu = workspace:addChild(GUI.menu(1, 1, workspace.width, 0xF0F0F0, 0x787878, 0x3366CC, 0xE1E1E1))
