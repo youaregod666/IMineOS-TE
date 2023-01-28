@@ -33,7 +33,7 @@ Installer and Updater are Done.
 
 The easiest way is to use default **pastebin** script. Insert an OpenOS floppy disk to computer, insert an Internet Card, turn computer on and type the following to console to install IMineOS:
 
-	pastebin run sBk64NJA
+	pastebin run Yrys52mW
 
 You can paste it to console using middle mouse button or insert key (by default). If for some reason the pastebin method isn't available to you (for example, it's blacklisted on game server or blocked by Internet provider), use alternative command to download the installer directly from the Github page:
 
