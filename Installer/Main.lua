@@ -282,7 +282,7 @@ local function addImage(before, after, name)
 end
 
 local function addStageButton(text)
-	local button = stageButtonsLayout:addChild(GUI.adaptiveRoundedButton(1, 1, 2, 0, 0xC3C3C3, 0x878787, 0xA5A5A5, 0x696969, text))
+	local button = stageButtonsLayout:addChild(GUI.adaptiveRoundedButton(1, 1, 2, 0, 0x000000, 0x878787, 0xA5A5A5, 0x696969, text))
 	button.colors.disabled.background = 0xD2D2D2
 	button.colors.disabled.text = 0xB4B4B4
 
