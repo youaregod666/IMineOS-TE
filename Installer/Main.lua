@@ -17,7 +17,7 @@ local EEPROMProxy, internetProxy, GPUProxy =
 GPUProxy.bind(getComponentAddress("screen"))
 local screenWidth, screenHeight = GPUProxy.getResolution()
 
-local repositoryURL = "https://raw.githubusercontent.com/youaregod666/IMineOS_BIOS/master/"
+local repositoryURL = "https://raw.githubusercontent.com/youaregod666/IMineOS_TE/master/"
 local installerURL = "Installer/"
 local EFIURL = "EFI/Minified.lua"
 
@@ -42,7 +42,7 @@ end
 
 local function title()
 	local y = math.floor(screenHeight / 2 - 1)
-	centrizedText(y, 0x2D2D2D, "Starting IMineOS PC Setup")
+	centrizedText(y, 0x2D2D2D, "Starting IMineOS TE Setup")
 
 	return y + 2
 end
@@ -61,9 +61,9 @@ local function progress(value)
 	local width = 26
 	local x, y, part = centrize(width), title(), math.ceil(width * value)
 	
-	GPUProxy.setForeground(0x878787)
+	GPUProxy.setForeground(0xFFFFFF)
 	GPUProxy.set(x, y, string.rep("─", part))
-	GPUProxy.setForeground(0xC3C3C3)
+	GPUProxy.setForeground(0x000000)
 	GPUProxy.set(x + part, y, string.rep("─", width - part))
 end
 
@@ -141,7 +141,7 @@ local function deserialize(text)
 end
 
 -- Clearing screen
-GPUProxy.setBackground(0xE1E1E1)
+GPUProxy.setBackground(0x000000)
 GPUProxy.fill(1, 1, screenWidth, screenHeight, " ")
 
 -- Searching for appropriate temporary filesystem for storing libraries, images, etc
