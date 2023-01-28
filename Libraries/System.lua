@@ -94,7 +94,7 @@ function system.getDefaultUserSettings()
     interfaceScreensaverPath = paths.system.screensavers .. "Space.lua",
     interfaceScreensaverDelay = 20,
     
-    interfaceTransparencyEnabled = true,
+    interfaceTransparencyEnabled = false,
     interfaceTransparencyDock = 0.4,
     interfaceTransparencyMenu = 0.2,
     interfaceTransparencyContextMenu = 0.2,
@@ -120,7 +120,6 @@ function system.getDefaultUserSettings()
     
     tasks = {},
     dockShortcuts = {
-      filesystem.path(paths.system.applicationAppMarket),
       filesystem.path(paths.system.applicationMineCodeIDE),
       filesystem.path(paths.system.applicationFinder),
       filesystem.path(paths.system.applicationPictureEdit),
@@ -130,7 +129,6 @@ function system.getDefaultUserSettings()
       [".lua"] = filesystem.path(paths.system.applicationMineCodeIDE),
       [".cfg"] = filesystem.path(paths.system.applicationMineCodeIDE),
       [".txt"] = filesystem.path(paths.system.applicationMineCodeIDE),
-      [".exe"] = filesystem.path(paths.system.applicationIEdit),
       [".lang"] = filesystem.path(paths.system.applicationMineCodeIDE),
       [".pic"] = filesystem.path(paths.system.applicationPictureView),
       [".3dm"] = paths.system.applications .. "3D Print.app/"
