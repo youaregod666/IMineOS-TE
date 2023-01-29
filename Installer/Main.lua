@@ -263,7 +263,7 @@ local function newInput(...)
 end
 
 local function newSwitchAndLabel(width, color, text, state)
-	return GUI.switchAndLabel(1, 1, width, 6, color, 0xD2D2D2, 0xF0F0F0, 0xA5A5A5, text .. ":", state)
+	return GUI.switchAndLabel(1, 1, width, 6, color, 0xD2D2D2, 0xF0F0F0, 0xFFFFFF, text .. ":", state)
 end
 
 local function addTitle(color, text)
@@ -304,7 +304,7 @@ local passwordSwitchAndLabel = newSwitchAndLabel(26, 0x66DB80, "", false)
 
 local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
 local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
-local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
+local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
 local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
 
 local acceptSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
@@ -541,7 +541,7 @@ addStage(function()
 
 	-- Renaming if possible
 	if not selectedFilesystemProxy.getLabel() then
-		selectedFilesystemProxy.setLabel("IMineOS")
+		selectedFilesystemProxy.setLabel("IMineOS HDD")
 	end
 
 	local function switchProxy(runnable)
