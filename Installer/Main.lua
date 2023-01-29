@@ -229,7 +229,7 @@ local workspace = GUI.workspace()
 workspace:addChild(GUI.panel(1, 1, workspace.width, workspace.height, 0x000000))
 
 -- Main installer window
-local window = workspace:addChild(GUI.window(1, 1, 70, 17))
+local window = workspace:addChild(GUI.window(1, 1, 70, 20))
 window.localX, window.localY = math.ceil(workspace.width / 2 - window.width / 2), math.ceil(workspace.height / 2 - window.height / 2)
 window:addChild(GUI.panel(1, 1, window.width, window.height, 0xE1E1E1))
 
@@ -282,7 +282,7 @@ local function addImage(before, after, name)
 end
 
 local function addStageButton(text)
-	local button = stageButtonsLayout:addChild(GUI.adaptiveRoundedButton(1, 1, 2, 0, 0x000000, 0x878787, 0xA5A5A5, 0x696969, text))
+	local button = stageButtonsLayout:addChild(GUI.adaptiveRoundedButton(1, 1, 2, 0, 0xFFFFFF, 0x878787, 0xA5A5A5, 0x696969, text))
 	button.colors.disabled.background = 0xD2D2D2
 	button.colors.disabled.text = 0xB4B4B4
 
