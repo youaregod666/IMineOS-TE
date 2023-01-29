@@ -302,12 +302,12 @@ local passwordSubmitInput = newInput("", false, "•")
 local usernamePasswordText = GUI.text(1, 1, 0xCC0040, "")
 local passwordSwitchAndLabel = newSwitchAndLabel(26, 0x66DB80, "", false)
 
-local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0xFF4980, "", true)
-local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0xFFB600, "", true)
-local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x33DB80, "", true)
-local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x33B6FF, "", true)
+local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
+local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
+local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
+local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
 
-local acceptSwitchAndLabel = newSwitchAndLabel(30, 0x9949FF, "", false)
+local acceptSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
 
 local localizationComboBox = GUI.comboBox(1, 1, 22, 1, 0xF0F0F0, 0x969696, 0xD2D2D2, 0xB4B4B4)
 for i = 1, #files.localizations do
