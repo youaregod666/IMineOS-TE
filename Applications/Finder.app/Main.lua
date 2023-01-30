@@ -35,8 +35,8 @@ if filesystem.exists(configPath) then
 	config = filesystem.readTable(configPath)
 end
 
-local sidebarTitleColor = 0xC3C3C3
-local sidebarItemColor = 0x696969
+local sidebarTitleColor = 0xCCCCCC
+local sidebarItemColor = 0xCCCCCC
 
 local pathHistory = {}
 local pathHistoryCurrent = 0
@@ -47,14 +47,14 @@ local workspace, window, menu = system.addWindow(GUI.filledWindow(1, 1, 100, 26,
 
 local titlePanel = window:addChild(GUI.panel(1, 1, 1, 3, 0x3C3C3C))
 
-local prevButton = window:addChild(GUI.adaptiveRoundedButton(9, 2, 1, 0, 0x5A5A5A, 0xC3C3C3, 0xE1E1E1, 0x3C3C3C, "<"))
+local prevButton = window:addChild(GUI.adaptiveRoundedButton(9, 2, 1, 0, 0x4B4B4B, 0xCCCCCC, 0xE1E1E1, 0x3C3C3C, "<"))
 prevButton.colors.disabled.background = 0x4B4B4B
 prevButton.colors.disabled.text = 0xA5A5A5
 
-local nextButton = window:addChild(GUI.adaptiveRoundedButton(14, 2, 1, 0, 0x5A5A5A, 0xC3C3C3, 0xE1E1E1, 0x3C3C3C, ">"))
+local nextButton = window:addChild(GUI.adaptiveRoundedButton(14, 2, 1, 0, 0x4B4B4B, 0xCCCCCC, 0xE1E1E1, 0x3C3C3C, ">"))
 nextButton.colors.disabled = prevButton.colors.disabled
 
-local FTPButton = window:addChild(GUI.adaptiveRoundedButton(nextButton.localX + nextButton.width + 2, 2, 1, 0, 0x5A5A5A, 0xC3C3C3, 0xE1E1E1, 0x3C3C3C, "FTP"))
+local FTPButton = window:addChild(GUI.adaptiveRoundedButton(nextButton.localX + nextButton.width + 2, 2, 1, 0, 0x4B4B4B, 0xCCCCCC, 0xE1E1E1, 0x3C3C3C, "FTP"))
 FTPButton.colors.disabled = prevButton.colors.disabled
 FTPButton.disabled = not network.internetProxy
 
@@ -131,7 +131,7 @@ end
 local function sidebarItemDraw(object)
 	local textColor, limit = object.textColor, object.width - 2
 	if object.path == iconField.path then
-		textColor = 0x5A5A5A
+		textColor = 0x000000
 		screen.drawRectangle(object.x, object.y, object.width, 1, 0xF0F0F0, textColor, " ")
 
 		if object.onRemove then
