@@ -25,10 +25,6 @@ Here's a list of a few features:
 will get more updates. 
 Installer and Updater are Done.
 
-## how to install EFI
-
-	pastebin run KCKNwu4t
-
 ## How to install?
 
 The easiest way is to use default **pastebin** script. Insert an OpenOS floppy disk to computer, insert an Internet Card, turn computer on and type the following to console to install IMineOS:
