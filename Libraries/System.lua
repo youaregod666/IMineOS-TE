@@ -11,8 +11,10 @@ local text = require("Text")
 local number = require("Number")
 
 --------------------------------------------------------------------------------
-
+local MineOSVersion = "1.0.5.2"
 local system = {}
+
+local liccode = "0"
 
 local iconImageWidth = 8
 local iconImageHeight = 4
@@ -28,7 +30,6 @@ local iconHalfWidth
 local iconTextHeight
 local iconImageHorizontalOffset
 local bootRealTime
-
 local workspace
 local desktopWindowsContainer
 local dockContainer
@@ -39,6 +40,7 @@ local desktopBackground
 local desktopBackgroundColor = 0x1E1E1E
 local desktopBackgroundWallpaperX
 local desktopBackgroundWallpaperY
+
 
 -- Caching commonly used icons
 local iconCache = {
@@ -55,7 +57,6 @@ local iconCache = {
 function system.getTime()
   return bootRealTime + computer.uptime() + userSettings.timeTimezone
 end
-
 -- Returns currently logged in user
 function system.getUser()
   return user
@@ -73,7 +74,7 @@ end
 
 function system.getDefaultUserSettings()
   return {
-    localizationLanguage = "English",
+    localizationLanguage = "Dansk",
 
     timeFormat = "%d %b %Y %H:%M:%S",
     timeRealTimestamp = true,
@@ -86,7 +87,7 @@ function system.getDefaultUserSettings()
     networkFTPConnections = {},
     
     interfaceWallpaperEnabled = false,
-    interfaceWallpaperPath = paths.system.pictures .. "Space.pic",
+    interfaceWallpaperPath = paths.system.pictures .. "Block.pic",
     interfaceWallpaperMode = 1,
     interfaceWallpaperBrightness = 0.9,
 
@@ -102,8 +103,8 @@ function system.getDefaultUserSettings()
     interfaceBlurRadius = 3,
     interfaceBlurTransparency = 0.6,
 
-    interfaceColorDesktopBackground = 0x1E1E1E,
-    interfaceColorDock = 0xE1E1E1,
+    interfaceColorDesktopBackground = 0x2137FF,
+    interfaceColorDock = 0x386404,
     interfaceColorMenu = 0xF0F0F0,
     interfaceColorDropDownMenuSeparator = 0xA5A5A5,
     interfaceColorDropDownMenuDefaultBackground = 0xFFFFFF,
@@ -111,6 +112,7 @@ function system.getDefaultUserSettings()
 
     filesShowExtension = false,
     filesShowHidden = false,
+    EFI = false,
     filesShowApplicationIcon = true,
 
     iconWidth = 12,
@@ -1774,11 +1776,12 @@ function system.addWindow(window, dontAddToDock, preserveCoordinates)
     end
     
     window.actionButtons.maximize.onTouch = function()
-      window:maximize()
+      window:minimize()
     end
     
     window.actionButtons.minimize.onTouch = function()
-      window:minimize()
+      window:maximize()
+
     end
   end
 
@@ -1826,8 +1829,8 @@ function system.copy(fileList, toPath)
   local applyYes, breakRecursion
 
   local container = GUI.addBackgroundContainer(workspace, true, true, localization.copying)
-  local textBox = container.layout:addChild(GUI.textBox(1, 1, container.width, 1, nil, 0x878787, {}, 1, 0, 0, true, true):setAlignment(GUI.ALIGNMENT_HORIZONTAL_CENTER, GUI.ALIGNMENT_VERTICAL_TOP))
-  local switchAndLabel = container.layout:addChild(GUI.switchAndLabel(1, 1, 37, 8, 0x66DB80, 0x1E1E1E, 0xE1E1E1, 0x878787, localization.applyToAll .. ":", false))
+  local textBox = container.layout:addChild(GUI.textBox(1, 1, container.width, 1, nil, 0xCCCCCC, {}, 1, 0, 0, true, true):setAlignment(GUI.ALIGNMENT_HORIZONTAL_CENTER, GUI.ALIGNMENT_VERTICAL_TOP))
+  local switchAndLabel = container.layout:addChild(GUI.switchAndLabel(1, 1, 37, 8, 0x66DB80, 0x1E1E1E, 0xE1E1E1, 0xCCCCCC, localization.applyToAll .. ":", false))
   container.panel.eventHandler = nil
 
   local buttonsLayout = container.layout:addChild(GUI.layout(1, 1, 1, 1, 1, 1))
@@ -1858,6 +1861,7 @@ function system.copy(fileList, toPath)
     textBox:update()
 
     workspace:draw()
+
 
     filesystem.remove(finalPath)
 
@@ -2186,27 +2190,27 @@ end
 
 function system.updateDesktop()
   desktopIconField = workspace:addChild(
-    system.gridIconField(
-      1, 2, 1, 1, 3, 2,
-      paths.user.desktop,
-      0xFFFFFF,
-      0xD2D2D2,
-      0xFFFFFF,
-      0xD2D2D2,
-      0.5
-    )
+          system.gridIconField(
+                  1, 2, 1, 1, 3, 2,
+                  paths.user.desktop,
+                  0xFFFFFF,
+                  0xD2D2D2,
+                  0xFFFFFF,
+                  0xD2D2D2,
+                  0.5
+          )
   )
-  
+
   desktopIconField.iconConfigEnabled = true
-  
+
   desktopIconField.launchers.directory = function(icon)
     system.execute(paths.system.applicationFinder, "-o", icon.path)
   end
-  
+
   desktopIconField.launchers.showContainingFolder = function(icon)
     system.execute(paths.system.applicationFinder, "-o", filesystem.path(icon.shortcutPath or icon.path))
   end
-  
+
   desktopIconField.launchers.showPackageContent = function(icon)
     system.execute(paths.system.applicationFinder, "-o", icon.path)
   end
@@ -2280,7 +2284,7 @@ function system.updateDesktop()
     icon.onRightClick = function(icon, e1, e2, e3, e4, ...)
       local indexOf = icon:indexOf()
       local contextMenu = GUI.addContextMenu(workspace, e3, e4)
-      
+
       contextMenu.onMenuClosed = function()
         icon.selected = false
         workspace:draw()
@@ -2288,11 +2292,11 @@ function system.updateDesktop()
 
       if icon.windows then
         local eventData = {...}
-        
+
         contextMenu:addItem(localization.newWindow).onTouch = function()
           iconOnDoubleClick(icon, e1, e2, e3, e4, table.unpack(eventData))
         end
-        
+
         contextMenu:addItem(localization.closeAllWindows).onTouch = function()
           for window in pairs(icon.windows) do
             window:remove()
@@ -2301,23 +2305,23 @@ function system.updateDesktop()
           workspace:draw()
         end
       end
-      
+
       contextMenu:addItem(localization.showContainingFolder).onTouch = function()
         system.execute(paths.system.applicationFinder, "-o", filesystem.path(icon.shortcutPath or icon.path))
       end
-      
+
       contextMenu:addSeparator()
-      
+
       contextMenu:addItem(localization.moveRight, indexOf >= #dockContainer.children - 1).onTouch = function()
         moveDockIcon(indexOf, 1)
       end
-      
+
       contextMenu:addItem(localization.moveLeft, indexOf <= 1).onTouch = function()
         moveDockIcon(indexOf, -1)
       end
-      
+
       contextMenu:addSeparator()
-      
+
       if icon.keepInDock then
         if #dockContainer.children > 1 then
           contextMenu:addItem(localization.removeFromDock).onTouch = function()
@@ -2327,7 +2331,7 @@ function system.updateDesktop()
               icon:remove()
               dockContainer.sort()
             end
-            
+
             workspace:draw()
             dockContainer.saveUserSettings()
           end
@@ -2360,19 +2364,19 @@ function system.updateDesktop()
 
   icon.onLeftClick = function(...)
     icon:launch()
-    
+
     icon.selected = false
     workspace:draw()
   end
 
   icon.onRightClick = function(icon, e1, e2, e3, e4)
     local contextMenu = GUI.addContextMenu(workspace, e3, e4)
-    
+
     contextMenu.onMenuClosed = function()
       icon.selected = false
       workspace:draw()
     end
-    
+
     contextMenu:addItem(localization.emptyTrash).onTouch = function()
       local container = GUI.addBackgroundContainer(workspace, true, true, localization.areYouSure)
 
@@ -2422,14 +2426,14 @@ function system.updateDesktop()
   desktopWindowsContainer = workspace:addChild(GUI.container(1, 2, 1, 1))
 
   desktopMenu = workspace:addChild(GUI.menu(1, 1, workspace.width, 0x0, 0x696969, 0x3366CC, 0xFFFFFF))
-  
-  local MineOSContextMenu = desktopMenu:addContextMenuItem("IMineOS", 0x000000)
+
+  local MineOSContextMenu = desktopMenu:addContextMenuItem("IMineOS TE", 0x000000)
   MineOSContextMenu:addItem(localization.aboutSystem).onTouch = function()
     local container = GUI.addBackgroundContainer(workspace, true, true, localization.aboutSystem)
     container.layout:removeChildren()
-    
+
     local lines = {
-      "IMineOS",
+      "IMineOS TE 1.0.5.2",
       "Copyright © 2022-" .. os.date("%Y", system.getTime()),
       " ",
       "Developers:",
@@ -2469,13 +2473,14 @@ function system.updateDesktop()
     workspace:draw()
   end
 
-  --MineOSContextMenu:addItem(localization.updates).onTouch = function()
-    --system.execute(paths.system.applicationAppMarket, "update IMineOS")
-  --end
-  
-   MineOSContextMenu:addItem(localization.updates).onTouch = function()
-    system.execute(paths.system.applicationSettings, "Settings")
+
+ MineOSContextMenu:addItem(localization.updates).onTouch = function()
+    system.execute(paths.system.applicationAppMarket, "Update")
   end
+  
+   --MineOSContextMenu:addItem(localization.updates).onTouch = function()
+   -- system.execute(paths.system.applicationSettings, "Settings")
+  --end
 
   MineOSContextMenu:addSeparator()
 
@@ -2756,7 +2761,6 @@ end
 
 function system.authorize()
   system.updateWorkspace()
-
   -- Obtaining user list and removing non-directory files from it
   local userList = filesystem.list(paths.system.users)
   local i = 1
