@@ -81,11 +81,6 @@ layout:addChild(GUI.text(16, 16, 0x33DB40, lang.version))
 layout:addChild(GUI.text(17, 17, 0x0049FF, lang.dev))
 
 -- You can also add items without context menu
-
-local contextMenu = menu:addContextMenuItem("Help")
-contextMenu:addItem("About").onTouch = function()
- system.execute("/Applications/Settings.app/Main.lua", "System")
-end
 menu:addItem(lang.exit).onTouch = function()
   window:remove()
 end
