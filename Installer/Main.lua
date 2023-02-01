@@ -42,7 +42,7 @@ end
 
 local function title()
 	local y = math.floor(screenHeight / 2 - 1)
-	centrizedText(y, 0x2D2D2D, "Starting IMineOS Setup")
+	centrizedText(y, 0x2D2D2D, "Starting IMineOS TE Setup")
 
 	return y + 2
 end
@@ -61,9 +61,9 @@ local function progress(value)
 	local width = 26
 	local x, y, part = centrize(width), title(), math.ceil(width * value)
 	
-	GPUProxy.setForeground(0x878787)
+	GPUProxy.setForeground(0xFFFFFF)
 	GPUProxy.set(x, y, string.rep("─", part))
-	GPUProxy.setForeground(0xC3C3C3)
+	GPUProxy.setForeground(0x000000)
 	GPUProxy.set(x + part, y, string.rep("─", width - part))
 end
 
@@ -141,7 +141,7 @@ local function deserialize(text)
 end
 
 -- Clearing screen
-GPUProxy.setBackground(0xE1E1E1)
+GPUProxy.setBackground(0x000000)
 GPUProxy.fill(1, 1, screenWidth, screenHeight, " ")
 
 -- Searching for appropriate temporary filesystem for storing libraries, images, etc
@@ -226,16 +226,16 @@ local paths = require("Paths")
 
 -- Creating main UI workspace
 local workspace = GUI.workspace()
-workspace:addChild(GUI.panel(1, 1, workspace.width, workspace.height, 0x1E1E1E))
+workspace:addChild(GUI.panel(1, 1, workspace.width, workspace.height, 0x000000))
 
 -- Main installer window
-local window = workspace:addChild(GUI.window(1, 1, 80, 24))
+local window = workspace:addChild(GUI.window(1, 1, 70, 20))
 window.localX, window.localY = math.ceil(workspace.width / 2 - window.width / 2), math.ceil(workspace.height / 2 - window.height / 2)
 window:addChild(GUI.panel(1, 1, window.width, window.height, 0xE1E1E1))
 
 -- Top menu
 local menu = workspace:addChild(GUI.menu(1, 1, workspace.width, 0xF0F0F0, 0x787878, 0x3366CC, 0xE1E1E1))
-local installerMenu = menu:addContextMenuItem("IMineOS", 0x2D2D2D)
+local installerMenu = menu:addContextMenuItem("IMineOS TE", 0x000000)
 installerMenu:addItem("Shutdown").onTouch = function()
 	computer.shutdown()
 end
@@ -263,7 +263,7 @@ local function newInput(...)
 end
 
 local function newSwitchAndLabel(width, color, text, state)
-	return GUI.switchAndLabel(1, 1, width, 6, color, 0xD2D2D2, 0xF0F0F0, 0xA5A5A5, text .. ":", state)
+	return GUI.switchAndLabel(1, 1, width, 6, color, 0xD2D2D2, 0xF0F0F0, 0xFFFFFF, text .. ":", state)
 end
 
 local function addTitle(color, text)
@@ -282,7 +282,7 @@ local function addImage(before, after, name)
 end
 
 local function addStageButton(text)
-	local button = stageButtonsLayout:addChild(GUI.adaptiveRoundedButton(1, 1, 2, 0, 0xC3C3C3, 0x878787, 0xA5A5A5, 0x696969, text))
+	local button = stageButtonsLayout:addChild(GUI.adaptiveRoundedButton(1, 1, 2, 0, 0xFFFFFF, 0x878787, 0xA5A5A5, 0x696969, text))
 	button.colors.disabled.background = 0xD2D2D2
 	button.colors.disabled.text = 0xB4B4B4
 
@@ -302,12 +302,12 @@ local passwordSubmitInput = newInput("", false, "•")
 local usernamePasswordText = GUI.text(1, 1, 0xCC0040, "")
 local passwordSwitchAndLabel = newSwitchAndLabel(26, 0x66DB80, "", false)
 
-local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0xFF4980, "", true)
-local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0xFFB600, "", true)
-local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x33DB80, "", true)
-local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x33B6FF, "", true)
+local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
+local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
+local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
+local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
 
-local acceptSwitchAndLabel = newSwitchAndLabel(30, 0x9949FF, "", false)
+local acceptSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
 
 local localizationComboBox = GUI.comboBox(1, 1, 22, 1, 0xF0F0F0, 0x969696, 0xD2D2D2, 0xB4B4B4)
 for i = 1, #files.localizations do
@@ -541,7 +541,7 @@ addStage(function()
 
 	-- Renaming if possible
 	if not selectedFilesystemProxy.getLabel() then
-		selectedFilesystemProxy.setLabel("IMineOS")
+		selectedFilesystemProxy.setLabel("IMineOS HDD")
 	end
 
 	local function switchProxy(runnable)
@@ -668,13 +668,7 @@ addStage(function()
 	addImage(1, 1, "Done")
 	addTitle(0x969696, localization.installed)
 	addStageButton(localization.reboot).onTouch = function()
-			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Full.lua") == nil then
 	computer.shutdown(true)
-end
-			if require("Internet").run("https://raw.githubusercontent.com/youaregod666/mine/master/EFI/Minified.lua") == nil then
-	computer.shutdown(true)
-end
-		computer.shutdown(true)
 	end
 	workspace:draw()
 
