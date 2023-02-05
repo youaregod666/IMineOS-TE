@@ -162,11 +162,14 @@ package.loaded.unicode = unicode
 
 ---------------------------------------- Main loop ----------------------------------------
 
--- Delete App MineOS
-if filesystem.exists("/Applications/App Market.app") then
-  filesystem.remove("/Applications/App Market.app")
+if filesystem.exists("/OS.lua") then
+else
+  -- Delete App MineOS
+  if filesystem.exists("/Applications/App Market.app") then
+    filesystem.remove("/Applications/App Market.app")
+  end
+  -- Delete App MineOS
 end
--- Delete App MineOS
 
 -- Creating OS workspace, which contains every window/menu/etc.
 local workspace = GUI.workspace()
