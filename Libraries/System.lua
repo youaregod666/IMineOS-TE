@@ -113,6 +113,7 @@ function system.getDefaultUserSettings()
     filesShowExtension = false,
     filesShowHidden = false,
     EFI = false,
+    SMode = "0",
     filesShowApplicationIcon = true,
 
     iconWidth = 12,
@@ -2429,41 +2430,33 @@ function system.updateDesktop()
 
   local MineOSContextMenu = desktopMenu:addContextMenuItem("IMineOS TE", 0x000000)
   MineOSContextMenu:addItem(localization.aboutSystem).onTouch = function()
+    local S = ""
+    if userSettings.SMode == "1" then
+      S = "IMineOS TE S Mode"
+    else
+      S = "IMineOS TE"
+    end
     local container = GUI.addBackgroundContainer(workspace, true, true, localization.aboutSystem)
     container.layout:removeChildren()
 
     local lines = {
-      "IMineOS TE 1.0.5.2",
-      "Copyright © 2022-" .. os.date("%Y", system.getTime()),
-      " ",
-      "Developers:",
-      " ",
-      "Igor Timofeev, vk.com/id7799889",
-      "Gleb Trifonov, vk.com/id88323331",
-      "Yakov Verevkin, vk.com/id60991376",
-      "Alexey Smirnov, vk.com/id23897419",
-      "Timofey Shestakov, vk.com/id113499693",
-      "Sebastian Sebs web-Sebland.tk",
-      " ",
-      "UX-advisers:",
-      " ",
-      "Nikita Yarichev, vk.com/id65873873",
-      "Vyacheslav Sazonov, vk.com/id21321257",
-      "Michail Prosin, vk.com/id75667079",
-      "Dmitrii Tiunov, vk.com/id151541414",
-      "Egor Paliev, vk.com/id83795932",
-      "Maxim Pakin, vk.com/id100687922",
-      "Andrey Kakoito, vk.com/id201043162",
-      "Maxim Omelaenko, vk.com/id54662296",
-      "Konstantin Mayakovskiy, vk.com/id10069748",
-      "Ruslan Isaev, vk.com/id181265169",
-      "Eugene8388608, vk.com/id287247631",
-      " ",
-      "Translators:",
-      " ",
-      "06Games, github.com/06Games",
-      "Xenia Mazneva, vk.com/id5564402",
-      "Yana Dmitrieva, vk.com/id155326634",
+    S .. " 1.1.6.6",
+    "Copyright © 2022-" .. os.date("%Y", system.getTime()),
+    " ",
+    "Developers:",
+    " ",
+    "Igor Timofeev, vk.com/id7799889",
+    "Gleb Trifonov, vk.com/id88323331",
+    "Yakov Verevkin, vk.com/id60991376",
+    "Alexey Smirnov, vk.com/id23897419",
+    "Timofey Shestakov, vk.com/id113499693",
+    "Sebastian Sebs web-Sebland.tk",
+    " ",
+    "Translators:",
+    " ",
+    "06Games, github.com/06Games",
+    "Xenia Mazneva, vk.com/id5564402",
+    "Yana Dmitrieva, vk.com/id155326634",
     }
 
     local textBox = container.layout:addChild(GUI.textBox(1, 1, container.layout.width, #lines, nil, 0xB4B4B4, lines, 1, 0, 0))
@@ -2471,7 +2464,7 @@ function system.updateDesktop()
     textBox.eventHandler = container.panel.eventHandler
 
     workspace:draw()
-  end
+    end
 
 
  MineOSContextMenu:addItem(localization.updates).onTouch = function()
@@ -2671,6 +2664,30 @@ local function updateUser(u)
   system.calculateIconProperties()
   -- Creating desktop widgets
   system.updateDesktop()
+
+  if userSettings.SMode == "1" then
+    local fs = filesystem
+    userSettings.filesShowHidden = false
+    userSettings.EFI = true
+    userSettings.filesShowExtension = false
+    if fs.exists("/Applications/Picture Edit.app") then
+      fs.rename("/Applications/Picture Edit.app", "/Applications/.Picture Edit.app")
+    end
+    if fs.exists("/Applications/3D Print.app") then
+      fs.rename("/Applications/3D Print.app", "/Applications/.3D Print.app")
+    end
+  else
+    local fs = filesystem
+    userSettings.filesShowHidden = false
+    userSettings.EFI = false
+    userSettings.filesShowExtension = false
+    if fs.exists("/Applications/.Picture Edit.app") then
+      fs.rename("/Applications/.Picture Edit.app", "/Applications/Picture Edit.app")
+    end
+    if fs.exists("/Applications/.3D Print.app") then
+      fs.rename("/Applications/.3D Print.app", "/Applications/3D Print.app")
+    end
+  end
   -- Meowing
   workspace:draw()
   require("Network").update()
@@ -2716,6 +2733,19 @@ local function newUserObject(name, addEventHandler)
   userObject.eventHandler = addEventHandler and userObjectEventHandler
 
   return userObject
+end
+
+local function S()
+  local fs = filesystem
+  userSettings.filesShowHidden = false
+  userSettings.EFI = true
+  userSettings.filesShowExtension = false
+  if fs.exists("/Applications/Picture Edit.app") then
+    fs.rename("/Applications/Picture Edit.app", "/Applications/.Picture Edit.app")
+  end
+  if fs.exists("/Applications/3D Print.app") then
+    fs.rename("/Applications/3D Print.app", "/Applications/.3D Print.app")
+  end
 end
 
 function system.updateWorkspace()
@@ -2853,6 +2883,9 @@ function system.authorize()
             if hash == userSettings.securityPassword then
               container:remove()
               updateUser(userName)
+              if filesystem.exists("/.com.IMineOS.EFI/Smode") then
+
+              end
             else
               GUI.alert("Incorrect password")
             end
