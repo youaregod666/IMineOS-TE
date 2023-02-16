@@ -263,7 +263,7 @@ local function newInput(...)
 end
 
 local function newSwitchAndLabel(width, color, text, state)
-	return GUI.switchAndLabel(1, 1, width, 6, color, 0xD2D2D2, 0xF0F0F0, 0xFFFFFF, text .. ":", state)
+	return GUI.switchAndLabel(1, 1, width, 6, color, 0xD2D2D2, 0x333333, 0xFFFFFF, text .. ":", state)
 end
 
 local function addTitle(color, text)
@@ -300,10 +300,10 @@ local usernameInput = newInput("")
 local passwordInput = newInput("", false, "•")
 local passwordSubmitInput = newInput("", false, "•")
 local usernamePasswordText = GUI.text(1, 1, 0xCC0040, "")
-local passwordSwitchAndLabel = newSwitchAndLabel(26, 0x66DB80, "", false)
+local passwordSwitchAndLabel = newSwitchAndLabel(26, 0x000000, "", false)
 
-local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
-local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
+local wallpapersSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
+local screensaversSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
 local applicationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", false)
 local localizationsSwitchAndLabel = newSwitchAndLabel(30, 0x000000, "", true)
 
@@ -524,7 +524,7 @@ addStage(function()
 	checkLicense()
 
 	local lines = text.wrap({request("LICENSE")}, layout.width - 2)
-	local textBox = layout:addChild(GUI.textBox(1, 1, layout.width, layout.height - 3, 0xF0F0F0, 0x696969, lines, 1, 1, 1))
+	local textBox = layout:addChild(GUI.textBox(1, 1, layout.width, layout.height - 3, 0xF0F0F0, 0xCCCCCC, lines, 1, 1, 1))
 
 	layout:addChild(acceptSwitchAndLabel)
 end)
@@ -578,8 +578,8 @@ addStage(function()
 	addImage(3, 2, "Downloading")
 
 	local container = layout:addChild(GUI.container(1, 1, layout.width - 20, 2))
-	local progressBar = container:addChild(GUI.progressBar(1, 1, container.width, 0x66B6FF, 0xD2D2D2, 0xA5A5A5, 0, true, false))
-	local cyka = container:addChild(GUI.label(1, 2, container.width, 1, 0x969696, "")):setAlignment(GUI.ALIGNMENT_HORIZONTAL_CENTER, GUI.ALIGNMENT_VERTICAL_TOP)
+	local progressBar = container:addChild(GUI.progressBar(1, 1, container.width, 0x66B6FF, 0xD2D2D2, 0xCCCCCC, 0, true, false))
+	local cyka = container:addChild(GUI.label(1, 2, container.width, 1, 0xCCCCCC, "")):setAlignment(GUI.ALIGNMENT_HORIZONTAL_CENTER, GUI.ALIGNMENT_VERTICAL_TOP)
 
 	-- Creating final filelist of things to download
 	local downloadList = {}
@@ -618,9 +618,8 @@ addStage(function()
 			end
 		end
 	end
-
-	addToList(true, "required")
 	addToList(true, "localizations")
+	addToList(true, "required")
 	addToList(applicationsSwitchAndLabel.switch.state, "optional")
 	addToList(wallpapersSwitchAndLabel.switch.state, "wallpapers")
 	addToList(screensaversSwitchAndLabel.switch.state, "screensavers")
