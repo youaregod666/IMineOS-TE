@@ -2,7 +2,7 @@ English
 
 
 
-## IMineOS Standalone has released!
+## IMineOS has released!
 
 Hello again, dear friend. Thank you for being with us and supporting our ideas throughout the long development cycle. IMineOS has finally reached the release stage: now it is a completely independent operating system with its own development API and wonderful [illustrated wiki](https://github.com/IgorTimofeev/MineOS/wiki) of it's usage. 
 IMineOS is a GUI based operating system for the Open Computers Minecraft mod. It has extensive and powerful customisation abilities as well as an app market to publish your creations among the OS community.
@@ -19,11 +19,6 @@ Here's a list of a few features:
 -   Error reporting system with the possibility to send information to developers
 -   Animations, wallpapers, screensavers, color schemes and huge customization possibilities
 -   Open source system API and detailed illustrated documentations
-
-## Project in 2023
-
-will get more updates. 
-Installer and Updater are Done.
 
 ## How to install?
 
