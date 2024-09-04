@@ -11,8 +11,20 @@ local userSettings = system.getUserSettings()
 --------------------------------------------------------------------------------
 
 module.name = localization.system
-module.margin = 3
+module.margin = 5
 module.onTouch = function()
+	-- System Version info
+	window.contentLayout:addChild(GUI.text(1, 1, 0x2D2D2D, ""))
+
+	window.contentLayout:addChild(GUI.text(1, 1, 0x2D2D2D, "System Version"))
+	-- System Name
+	window.contentLayout:addChild(GUI.text(1, 1, 0x2D2D2D, "System Name: IMineOS TE"))
+	-- System Version
+	window.contentLayout:addChild(GUI.text(1, 1, 0x2D2D2D, "System Version: " .. system.IMineOSTEVersion))
+
+	window.contentLayout:addChild(GUI.text(1, 1, 0x2D2D2D, ""))
+
+	-- CPU Architecture
 	window.contentLayout:addChild(GUI.text(1, 1, 0x2D2D2D, localization.systemArchitecture))
 
 	local CPUComboBox = window.contentLayout:addChild(GUI.comboBox(1, 1, 36, 3, 0xE1E1E1, 0x696969, 0xD2D2D2, 0xA5A5A5))
