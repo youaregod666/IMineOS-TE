@@ -40,6 +40,9 @@ package = {
   loading = {}
 }
 
+-- Sets Version String
+local VersionString = "1.1.6.8"
+
 -- Checks existense of specified path. It will be overriden after filesystem library initialization
 local function requireExists(path)
   return bootFilesystemProxy.exists(path)
@@ -102,7 +105,7 @@ local function UIRequire(module)
   local function centrize(width)
     return math.floor(screenWidth / 2 - width / 2)
   end
-  local title1, width, total = "IMineOS TE 1.0.5.2", 1, 1
+  local title1, width, total = "IMineOS TE " .. VersionString, 1, 1
   local title, width, total = "Starting IMineOS TE", 26, 14
   local x, y, part = centrize(width), math.floor(screenHeight / 2 - 1), math.ceil(width * UIRequireCounter / UIRequireTotal)
   UIRequireCounter = UIRequireCounter + 1
@@ -162,15 +165,6 @@ package.loaded.unicode = unicode
 
 ---------------------------------------- Main loop ----------------------------------------
 
-if filesystem.exists("/OS.lua") then
-else
-  -- Delete App MineOS
-  if filesystem.exists("/Applications/App Market.app") then
-    filesystem.remove("/Applications/App Market.app")
-  end
-  -- Delete App MineOS
-end
-
 -- Creating OS workspace, which contains every window/menu/etc.
 local workspace = GUI.workspace()
 system.setWorkspace(workspace)
@@ -221,6 +215,7 @@ event.addHandler(
 )
 
 -- Logging in
+system.IMineOSTEVersion = VersionString
 system.authorize()
 
 -- Main loop with UI regeneration after errors 
