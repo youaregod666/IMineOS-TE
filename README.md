@@ -1,11 +1,7 @@
-English
+## IMineOS TE has released!
 
-
-
-## IMineOS has released!
-
-Hello again, dear friend. Thank you for being with us and supporting our ideas throughout the long development cycle. IMineOS has finally reached the release stage: now it is a completely independent operating system with its own development API and wonderful [illustrated wiki](https://github.com/IgorTimofeev/MineOS/wiki) of it's usage. 
-IMineOS is a GUI based operating system for the OpenComputers Minecraft mod. It has extensive and powerful customisation abilities.
+Hello again, dear friend. Thank you for being with us and supporting our ideas throughout the long development cycle. IMineOS TE has finally reached the release stage: now it is a completely independent operating system with its own development API and wonderful [illustrated wiki](https://github.com/IgorTimofeev/MineOS/wiki) of it's usage. 
+IMineOS TE is a GUI based operating system for the OpenComputers Minecraft mod. It has extensive and powerful customisation abilities.
 Here's a list of a few features:
 
 -   Multitasking
@@ -22,7 +18,7 @@ Here's a list of a few features:
 
 ## How to install?
 
-The easiest way is to use default **pastebin** script. Insert an OpenOS floppy disk to computer, insert an Internet Card, turn computer on and type the following to console to install IMineOS:
+The easiest way is to use default **pastebin** script. Insert an OpenOS floppy disk to computer, insert an Internet Card, turn computer on and type the following to console to install IMineOS TE:
 
 	pastebin run Yrys52mW
 
