@@ -12,6 +12,7 @@ local number = require("Number")
 
 --------------------------------------------------------------------------------
 local MineOSVersion = "1.0.5.2"
+local IMineOSTEVersion = "1.1.6.8"
 local system = {}
 
 local liccode = "0"
@@ -2440,23 +2441,17 @@ function system.updateDesktop()
     container.layout:removeChildren()
 
     local lines = {
-    S .. " 1.1.6.6",
+    S .. " " .. IMineOSTEVersion,
+    " ",
     "Copyright © 2022-" .. os.date("%Y", system.getTime()),
     " ",
     "Developers:",
     " ",
-    "Igor Timofeev, vk.com/id7799889",
-    "Gleb Trifonov, vk.com/id88323331",
-    "Yakov Verevkin, vk.com/id60991376",
-    "Alexey Smirnov, vk.com/id23897419",
-    "Timofey Shestakov, vk.com/id113499693",
-    "Sebastian Sebs web-Sebland.tk",
+    "youaregod666, github.com/youaregod666",
     " ",
-    "Translators:",
+    "This Project is based on MineOS from early 2022",
     " ",
-    "06Games, github.com/06Games",
-    "Xenia Mazneva, vk.com/id5564402",
-    "Yana Dmitrieva, vk.com/id155326634",
+    "https://github.com/IgorTimofeev/MineOS/tree/master",
     }
 
     local textBox = container.layout:addChild(GUI.textBox(1, 1, container.layout.width, #lines, nil, 0xB4B4B4, lines, 1, 0, 0))
@@ -2467,8 +2462,54 @@ function system.updateDesktop()
     end
 
 
- MineOSContextMenu:addItem(localization.updates).onTouch = function()
-    system.execute(paths.system.applicationAppMarket, "Update")
+  MineOSContextMenu:addItem("Computer info").onTouch = function()
+    local component = require("Component")
+    local container = GUI.addBackgroundContainer(workspace, true, true, localization.aboutSystem)
+    container.layout:removeChildren()
+
+    local EFI = component.eeprom
+    local totalMemoryKB = math.modf(computer.totalMemory() / 1024)
+    local freeMemoryKB = math.modf(computer.freeMemory() / 1024)
+    local totalMemoryMB = math.modf(totalMemoryKB / 1024)
+    local freeMemoryMB = math.modf(freeMemoryKB / 1024)
+    local uptime = math.modf(computer.uptime())
+    local efiname = EFI.getLabel()
+    local boot = EFI.getData()
+
+    local S = ""
+    if userSettings.SMode == "1" then
+      S = "IMineOS TE S Mode"
+    else
+      S = "IMineOS TE"
+    end
+
+    local lines = {
+      S,
+      "",
+      "Version: " .. IMineOSTEVersion,
+      "",
+      "Copyright © 2022-" .. os.date("%Y", system.getTime()),
+      "",
+      "UEFI/BIOS name: " .. efiname,
+      "",
+      "Total Memory KB: " .. totalMemoryKB,
+      "",
+      "Total Memory MB: " .. totalMemoryMB,
+      "",
+      "Free Memory KB: " .. freeMemoryKB,
+      "",
+      "Free Memory MB: " .. freeMemoryMB,
+      "",
+      "Computers Uptime: " .. uptime,
+      "",
+      "Boot Drive: " .. boot,
+    }
+
+    local textBox = container.layout:addChild(GUI.textBox(1, 1, container.layout.width, #lines, nil, 0xB4B4B4, lines, 1, 0, 0))
+    textBox:setAlignment(GUI.ALIGNMENT_HORIZONTAL_CENTER, GUI.ALIGNMENT_VERTICAL_TOP)
+    textBox.eventHandler = container.panel.eventHandler
+
+    workspace:draw()
   end
   
    --MineOSContextMenu:addItem(localization.updates).onTouch = function()
