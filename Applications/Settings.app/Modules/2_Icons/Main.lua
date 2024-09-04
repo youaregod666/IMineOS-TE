@@ -16,7 +16,7 @@ module.onTouch = function()
 	window.contentLayout:addChild(GUI.text(1, 1, 0x2D2D2D, localization.appearanceFiles))
 
 	local showExtensionSwitch = window.contentLayout:addChild(GUI.switchAndLabel(1, 1, 36, 8, 0x66DB80, 0xE1E1E1, 0xFFFFFF, 0xA5A5A5, localization.appearanceExtensions .. ":", userSettings.filesShowExtension)).switch
-	local showHiddenFilesSwitch = window.contentLayout:addChild(GUI.switchAndLabel(1, 1, 36, 8, 0x66DB80, 0xE1E1E1, 0xFFFFFF, 0xA5A5A5, localization.appearanceHidden .. ":", userSettings.filesShowHidden)).switch
+	--local showHiddenFilesSwitch = window.contentLayout:addChild(GUI.switchAndLabel(1, 1, 36, 8, 0x66DB80, 0xE1E1E1, 0xFFFFFF, 0xA5A5A5, localization.appearanceHidden .. ":", userSettings.filesShowHidden)).switch
 	local showApplicationIconsSwitch = window.contentLayout:addChild(GUI.switchAndLabel(1, 1, 36, 8, 0x66DB80, 0xE1E1E1, 0xFFFFFF, 0xA5A5A5, localization.appearanceApplications .. ":", userSettings.filesShowApplicationIcon)).switch
 	local transparencySwitch = window.contentLayout:addChild(GUI.switchAndLabel(1, 1, 36, 8, 0xFF4940, 0xE1E1E1, 0xFFFFFF, 0xA5A5A5, localization.appearanceTransparencyEnabled .. ":", userSettings.interfaceTransparencyEnabled)).switch
 	local blurSwitch = window.contentLayout:addChild(GUI.switchAndLabel(1, 1, 36, 8, 0xFF4940, 0xE1E1E1, 0xFFFFFF, 0xA5A5A5, localization.appearanceBlurEnabled .. ":", userSettings.interfaceBlurEnabled)).switch
@@ -78,7 +78,7 @@ module.onTouch = function()
 
 	showExtensionSwitch.onStateChanged = function()
 		userSettings.filesShowExtension = showExtensionSwitch.state
-		userSettings.filesShowHidden = showHiddenFilesSwitch.state
+		--userSettings.filesShowHidden = showHiddenFilesSwitch.state
 		userSettings.filesShowApplicationIcon = showApplicationIconsSwitch.state
 		userSettings.interfaceTransparencyEnabled = transparencySwitch.state
 		userSettings.interfaceBlurEnabled = blurSwitch.state
@@ -89,8 +89,8 @@ module.onTouch = function()
 		computer.pushSignal("system", "updateFileList")
 	end
 
-	showHiddenFilesSwitch.onStateChanged, showApplicationIconsSwitch.onStateChanged, transparencySwitch.onStateChanged, blurSwitch.onStateChanged = showExtensionSwitch.onStateChanged, showExtensionSwitch.onStateChanged, showExtensionSwitch.onStateChanged, showExtensionSwitch.onStateChanged
-
+	 showApplicationIconsSwitch.onStateChanged, transparencySwitch.onStateChanged, blurSwitch.onStateChanged = showExtensionSwitch.onStateChanged, showExtensionSwitch.onStateChanged, showExtensionSwitch.onStateChanged
+-- showHiddenFilesSwitch.onStateChanged,  -- , showExtensionSwitch.onStateChanged
 end
 
 --------------------------------------------------------------------------------
